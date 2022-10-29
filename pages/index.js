@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { toast } from 'react-hot-toast'
 import axios from 'axios'
 import styles from '../styles/Home.module.css'
+import { VALID_SUBMISSIONS } from '../constants'
 
 export default function Home() {
   const [loading, setLoading] = useState(false)
@@ -41,9 +42,35 @@ export default function Home() {
         <link rel='icon' href='/media/fire.png' />
       </Head>
 
+      <header className={styles.header}>
+        <div className={styles.logo}>
+          <img src='/media/fire.gif' alt='' width={42} height={42} />
+          <h1>$rugburnz</h1>
+        </div>
+      </header>
+
       <main className={styles.main}>
-        <h1>Submit a Transaction ID</h1>
-        <p>Please submit a valid transaction ID</p>
+        <h2>Burn your sh*t!</h2>
+        <p>Send ADA + NFTs to <u>$rugburnz</u> as per one of the following tiers:</p>
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th>ADA</th>
+              <th>NFTs</th>
+            </tr>
+          </thead>
+          <tbody>
+            {VALID_SUBMISSIONS.map(({ name, requiredAda, requiredNfts }) => (
+              <tr key={name}>
+                <td>{name}</td>
+                <td>{requiredAda}</td>
+                <td>{requiredNfts}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <p>And then submit your transaction ID here:</p>
 
         <form onSubmit={submitTx} className={styles.form}>
           <input placeholder='Your TX ID...' value={inp} onChange={(e) => setInp(e.target.value)} />
