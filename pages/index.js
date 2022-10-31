@@ -51,7 +51,9 @@ export default function Home() {
 
       <main className={styles.main}>
         <h2>Burn your sh*t!</h2>
-        <p>Send ADA + NFTs to <u>$rugburnz</u> as per one of the following tiers:</p>
+        <p>
+          Send ADA + NFTs to <u>$rugburnz</u> as per one of the following tiers:
+        </p>
         <table>
           <thead>
             <tr>
@@ -89,7 +91,7 @@ export default function Home() {
       <footer className={styles.footer}>
         <p>
           Developed by&nbsp;
-          <a href='https://badfoxmc.com' target='_blank'>
+          <a href='https://badfoxmc.com' target='_blank' rel='noreferrer'>
             Bad Fox Motorcycle Club
           </a>
           .

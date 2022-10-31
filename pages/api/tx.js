@@ -8,7 +8,7 @@ const blockfrost = new BlockFrostAPI({
   projectId: BLOCKFROST_API_KEY,
 })
 
-export default async (req, res) => {
+const handler = async (req, res) => {
   try {
     await connectDB()
 
@@ -113,3 +113,5 @@ export default async (req, res) => {
     return res.status(500).json({})
   }
 }
+
+export default handler
