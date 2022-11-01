@@ -4,6 +4,7 @@ import { toast } from 'react-hot-toast'
 import axios from 'axios'
 import styles from '../styles/Home.module.css'
 import { VALID_SUBMISSIONS } from '../constants'
+import Image from 'next/image'
 
 export default function Home() {
   const [loading, setLoading] = useState(false)
@@ -47,6 +48,10 @@ export default function Home() {
           <img src='/media/fire.gif' alt='' width={42} height={42} />
           <h1>$rugburnz</h1>
         </div>
+
+        <a className={styles.discord} href='https://discord.gg/7Pm2jwy2' target='_blank' rel='noreferrer'>
+          <Image src='/media/discord.webp' alt='Discord' width={42} height={42} />
+        </a>
       </header>
 
       <main className={styles.main}>
