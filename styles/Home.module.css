@@ -16,11 +16,50 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  position: relative;
 }
 
 .logo {
   display: flex;
   align-items: center;
+}
+
+.flame {
+  background: transparent;
+  border: none;
+  cursor: crosshair;
+}
+
+.wallets {
+  position: absolute;
+  bottom: -183px;
+  left: 0;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.wallets button {
+  min-width: 200px;
+  height: 55px;
+  margin: 3px;
+
+  display: flex;
+  align-items: center;
+}
+
+.download {
+  padding: 0.5rem 1rem;
+  background: rgb(143, 157, 247);
+  color: white;
+  border: 1px solid white;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.download:hover {
+  background: purple;
 }
 
 .discord {

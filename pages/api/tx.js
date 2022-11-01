@@ -1,12 +1,7 @@
 import connectDB from '../../utils/mongo'
 import Transaction from '../../models/Transaction'
-import { BlockFrostAPI } from '@blockfrost/blockfrost-js'
-import { BLOCKFROST_API_KEY, DESTINATION_WALLET_ADDRESS, ONE_MILLION, VALID_SUBMISSIONS } from '../../constants'
-
-// https://github.com/blockfrost/blockfrost-js
-const blockfrost = new BlockFrostAPI({
-  projectId: BLOCKFROST_API_KEY,
-})
+import { DESTINATION_WALLET_ADDRESS, ONE_MILLION, VALID_SUBMISSIONS } from '../../constants'
+import { blockfrost } from '../../utils/blockfrost'
 
 const handler = async (req, res) => {
   try {
@@ -44,8 +39,8 @@ const handler = async (req, res) => {
           })
         }
 
-        const blockTx = await blockfrost.txs(txHash)
-        const blockUtxos = await blockfrost.txsUtxos(txHash)
+        const blockTx = await blockfrost.api.txs(txHash)
+        const blockUtxos = await blockfrost.api.txsUtxos(txHash)
 
         let sentAda = 0
         const sentAssetIds = []
