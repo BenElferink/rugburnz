@@ -8,6 +8,10 @@ const Transaction = new mongoose.Schema(
     tier: {
       type: mongoose.Schema.Types.String,
     },
+    didDownload: {
+      type: mongoose.Schema.Types.Boolean,
+      default: false,
+    },
     txHash: {
       type: mongoose.Schema.Types.String,
     },

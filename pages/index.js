@@ -6,7 +6,7 @@ import { toast } from 'react-hot-toast'
 import axios from 'axios'
 import writeXlsxFile from 'write-excel-file'
 import styles from '../styles/Home.module.css'
-import { VALID_SUBMISSIONS } from '../constants'
+import { SECRET_CODE, VALID_SUBMISSIONS } from '../constants'
 
 export default function Home() {
   const [availableWallets, setAvailableWallets] = useState([])
@@ -37,7 +37,7 @@ export default function Home() {
 
         let isOwner = false
         for (const { assetName } of adaHandles) {
-          if (assetName === 'rugburnz') isOwner = true
+          if (assetName === 'hoskyandson') isOwner = true
         }
 
         setIsRugburnz(isOwner)
@@ -139,6 +139,8 @@ export default function Home() {
         fileName: `$rugburnz records (${new Date().toLocaleString()}).xlsx`,
         columns: [{ width: 25 }, { width: 15 }, { width: 70 }, { width: 100 }],
       })
+
+      await axios.patch('/api/tx', { code: SECRET_CODE })
 
       toast.success('Done!')
     } catch (error) {

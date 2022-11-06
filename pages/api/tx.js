@@ -1,7 +1,7 @@
+import { blockfrost } from '../../utils/blockfrost'
 import connectDB from '../../utils/mongo'
 import Transaction from '../../models/Transaction'
-import { DESTINATION_WALLET_ADDRESS, ONE_MILLION, VALID_SUBMISSIONS } from '../../constants'
-import { blockfrost } from '../../utils/blockfrost'
+import { DESTINATION_WALLET_ADDRESS, ONE_MILLION, SECRET_CODE, VALID_SUBMISSIONS } from '../../constants'
 
 const handler = async (req, res) => {
   try {
@@ -9,19 +9,10 @@ const handler = async (req, res) => {
 
     const {
       method,
-      body: { txHash },
+      body: { txHash, code },
     } = req
 
     switch (method) {
-      case 'GET': {
-        const txs = await Transaction.find({})
-
-        return res.status(200).json({
-          count: txs.length,
-          txs,
-        })
-      }
-
       case 'POST': {
         if (!txHash) {
           return res.status(400).json({
@@ -85,6 +76,7 @@ const handler = async (req, res) => {
         tx = new Transaction({
           timestamp: Number(`${blockTx.block_time}000`),
           tier: validTier,
+          didDownload: false,
           txHash,
           sendingAddress,
           sentAda,
@@ -94,6 +86,39 @@ const handler = async (req, res) => {
         await tx.save()
 
         return res.status(201).json(tx)
+      }
+
+      case 'GET': {
+        const txs = await Transaction.find({ didDownload: false })
+
+        return res.status(200).json({
+          count: txs.length,
+          txs,
+        })
+      }
+
+      case 'PATCH': {
+        if (!code) {
+          return res.status(400).json({
+            type: 'BAD_REQUEST',
+            message: 'Please provide the following body: { code: "" }',
+          })
+        }
+
+        if (code !== SECRET_CODE) {
+          return res.status(401).end('Unauthorized')
+        }
+
+        const txs = await Transaction.find({ didDownload: false })
+
+        await Promise.all(
+          txs.map((tx) => {
+            tx.didDownload = true
+            return tx.save()
+          })
+        )
+
+        return res.status(200).json({})
       }
 
       default: {
