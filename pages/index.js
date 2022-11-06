@@ -88,7 +88,7 @@ export default function Home() {
     setLoading(true)
 
     try {
-      toast.loading('Collecting records...')
+      toast.loading('Collecting records...', { duration: 3000 })
 
       const {
         data: { txs },
@@ -113,7 +113,10 @@ export default function Home() {
             fontWeight: 'bold',
           },
         ],
-        ...txs.map(({ timestamp, tier, txHash, sendingAddress }) => [
+      ]
+
+      txs.forEach(({ timestamp, tier, txHash, sendingAddress }) => {
+        payload.push([
           {
             type: String,
             value: new Date(timestamp).toUTCString(),
@@ -130,19 +133,21 @@ export default function Home() {
             type: String,
             value: sendingAddress,
           },
-        ]),
-      ]
+        ])
+      })
 
-      toast.loading('Writing file...')
+      toast.loading('Writing file...', { duration: 3000 })
 
       await writeXlsxFile(payload, {
         fileName: `$rugburnz records (${new Date().toLocaleString()}).xlsx`,
-        columns: [{ width: 25 }, { width: 15 }, { width: 70 }, { width: 100 }],
+        columns: [{ width: 25 }, { width: 20 }, { width: 70 }, { width: 100 }],
       })
+
+      toast.loading('Updating records...', { duration: 3000 })
 
       await axios.patch('/api/tx', { code: SECRET_CODE })
 
-      toast.success('Done!')
+      toast.success('Done!', { duration: 5000 })
     } catch (error) {
       console.error(error)
       toast.error(error?.response?.data?.message ?? error?.message ?? 'An unexpected error occurred')

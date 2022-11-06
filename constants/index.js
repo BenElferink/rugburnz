@@ -1,6 +1,6 @@
 export const BLOCKFROST_API_KEY = process.env.BLOCKFROST_API_KEY
 export const MONGO_URI = process.env.MONGODB_URI
-export const SECRET_CODE = process.env.SECRET_CODE
+export const SECRET_CODE = process.env.NEXT_PUBLIC_SECRET_CODE
 
 export const ONE_MILLION = 1000000
 
