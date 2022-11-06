@@ -37,7 +37,7 @@ export default function Home() {
 
         let isOwner = false
         for (const { assetName } of adaHandles) {
-          if (assetName === 'hoskyandson') isOwner = true
+          if (assetName === 'rugburnz') isOwner = true
         }
 
         setIsRugburnz(isOwner)
