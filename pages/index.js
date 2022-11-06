@@ -176,7 +176,7 @@ export default function Home() {
           availableWallets.length == 0 ? (
             <div>No wallets installed</div>
           ) : (
-            <div className={styles.wallets}>
+            <div className={styles.wallets} style={{ bottom: `-${availableWallets.length * 61}px` }}>
               {availableWallets.map((wallet, idx) => (
                 <button
                   key={`connect_wallet_${wallet.name}`}

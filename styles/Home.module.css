@@ -33,7 +33,7 @@
 
 .wallets {
   position: absolute;
-  bottom: -183px;
+  /* bottom: -183px; */
   left: 0;
 
   display: flex;
